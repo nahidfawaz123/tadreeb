@@ -1,0 +1,33 @@
+.workshop_info_div {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info_div{
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+}
+
+.info_title {
+  padding: 5px;
+  padding-top: 0px;
+  background-color: #eceaea;
+  text-align: center;
+  border-radius:50px 50px 50px 50px;
+}
+
+.info_title span{
+  color: rgb(107,174,160);
+  width: 100%;
+  font-size: 17px;
+}
+.info_content {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  margin-top: 2px;
+}
+

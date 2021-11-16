@@ -1,0 +1,15 @@
+.text-right.profile_form {
+  padding: 20px;
+}
+
+.profile_div {
+  padding: 25px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.workshop_info{
+  margin-top: 14px;
+  font-size: 15px;
+}

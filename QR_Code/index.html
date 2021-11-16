@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
+	<script src="js/html2canvas.js"></script>
+
+	
+	<script>
+
+		function doCapture() {
+
+			window.scrollTo(0, 0);
+			
+			html2canvas(document.getElementById("Card")).then(function (canvas) {
+
+				
+				var ajax = new XMLHttpRequest();
+
+				
+				ajax.open("POST", "save-capture.php?name=" + document.getElementById('t_name').value +"", true);
+
+				
+				ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				
+				ajax.send("image=" + canvas.toDataURL("image/jpeg", 1));
+
+				
+				ajax.onreadystatechange = function () {
+
+					
+					if (this.readyState == 4 && this.status == 200) {
+						
+						
+						console.log(this.responseText);
+						document.getElementById("result").innerHTML = this.responseText;
+					}
+				};
+			});
+		}
+	</script>
+
+</head>
+<body>
+
+<center>
+
+	
+	<form onsubmit="generate();return false;">
+
+		name :<input type="text" id="t_name" name=""  style="padding:8px; margin:2px; width:200px; border:1px solid #bbb; border-radius:2px;"><br>
+		sex &nbsp;&nbsp;&nbsp;:<input type="text" id="t_sex" name="" style="padding:8px; margin:2px; width:200px; border:1px solid #bbb; border-radius:2px;"><br>
+		email&nbsp;:<input type="text" id="t_email" name="" style="padding:8px; margin:2px; width:200px; border:1px solid #bbb; border-radius:2px;"><br>
+		<input type="submit" value="generate">
+
+	</form>
+
+	<br>
+	<br>
+
+
+	
+	<div id="Card" style="border:2px solid #bbb; width:380px; padding: 8px; height: 200px; background-color: azure; font-size: 15px;">
+		<div id="container" style="border:1px solid #eee;">
+			<div id="qrResult" style="height: 110px;width: 110px; float: left; border:1px solid #ddd; padding: 5px;">
+			</div>
+			<div style="height: 130px;width: 190px; float: right; padding: 5px; text-align: right;">
+					<span style="font-weight: bold;">الإسم :</span><br> <span id="name"></span><br><br>
+					<span style="font-weight: bold;">الجنس </span><br> <span id="sex"></span><br><br>
+					<span style="font-weight: bold;">الإيميل</span><br> <span id="email"></span><br>
+			</div>
+			<div style="clear: both;"></div>
+			<br><br>
+			<span style="color:#555;">موقع تدريب</span>
+			<br>
+		</div>
+	</div>
+	
+
+	<br>
+	<button onclick="doCapture();">Save Card</button>
+	<p id="result">ff</p>
+
+
+
+<script type="text/javascript">
+
+			var qrcode=new QRCode(document.getElementById('qrResult'),{
+				width:110,
+				height:110
+			});
+
+		function generate(){
+			var name=document.getElementById('t_name');
+			var sex=document.getElementById('t_sex');
+			var email=document.getElementById('t_email');
+			if(!name.value){
+				alert("Input a text");
+				name.focus();
+				return;
+			}
+
+			document.getElementById("name").innerHTML = document.getElementById('t_name').value;
+			document.getElementById("sex").innerHTML = document.getElementById('t_sex').value;
+			document.getElementById("email").innerHTML = document.getElementById('t_email').value;
+			qrcode.makeCode(name.value + " * " + sex.value + " * " + email.value);
+		}
+
+</script>
+
+
+
+	<br>
+	<br>
+
+
+	<input type="file" id="file" name="file">
+
+	<p>Qr Content: <span id="content"></span></p>
+
+
+</center>
+	
+	<script type="text/javascript" src="js/qrReader.js"></script>
+
+</body>
+</html>
